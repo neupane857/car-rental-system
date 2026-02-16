@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group = 'com.codewithRikesh'
@@ -16,6 +18,10 @@ dependencies {
 
     implementation 'mysql:mysql-connector-java:8.0.26'
 
+}
+
+application {
+    mainClass = 'com.codewithRikesh.Main'
 }
 
 test {
