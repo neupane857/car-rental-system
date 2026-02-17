@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: car-rental-job
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      containers:
+        - name: car-rental
+          image: car-rental:1.0
+          imagePullPolicy: Never
+          envFrom:
+            - secretRef:
+                name: carrental-db-env
+      restartPolicy: Never
