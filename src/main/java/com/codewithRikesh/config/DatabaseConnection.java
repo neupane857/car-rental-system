@@ -1,5 +1,7 @@
 package com.codewithRikesh.config;
 
+import com.codewithRikesh.exception.DatabaseException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,18 +14,17 @@ public class DatabaseConnection {
 
 
     public static Connection connect(){
-        Connection connection = null;
+
         String URL = requireEnv("DB_URL");
         String USERNAME = requireEnv("DB_USERNAME");
         String PASSWORD = requireEnv("DB_PASSWORD");
         try {
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             System.out.println("Database connected successfully!");
+            return connection;
         } catch (SQLException e) {
-            System.out.println("Failed to connect to the database.");
-            e.printStackTrace();
+            throw new DatabaseException("Failed to connect to the database", e);
         }
-        return connection;
     }
 
     private static String requireEnv(String key) {
